@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.2.5'
 gem 'therubyracer', platforms: :ruby
+gem 'foreman'
+gem 'puma'
 
 gem 'sqlite3'
 
