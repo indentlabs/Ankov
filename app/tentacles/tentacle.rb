@@ -92,5 +92,7 @@ class Tentacle
     http     = Net::HTTP.new(uri.host, uri.port)
     request  = Net::HTTP::Get.new(uri.request_uri)
     response = http.request(request)
+
+    response.body
   end
 end

@@ -13,7 +13,7 @@ class TwitterWorker < Tentacle
   end
 
   def scrape
-    tweets = @client.home_timeline
+    tweets = client.home_timeline
     tweets.each do |tweet|
       log "Logging @#{tweet.user.screen_name}: #{tweet.text}"
       feed_retort(
@@ -31,7 +31,7 @@ class TwitterWorker < Tentacle
 
   # Tweet
   def broadcast message
-    @client.update message
+    client.update message
   #rescue
   #  log "Couldn't tweet: info", channel: 'error'
   end
