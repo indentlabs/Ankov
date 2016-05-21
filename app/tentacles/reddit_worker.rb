@@ -1,17 +1,17 @@
 class RedditWorker < Tentacle
-  attr_reader :reddit
+  attr_reader :client
 
   def startup
     # TODO: move config into db
     # TODO: make account used configurable from params
-    @reddit = Redd.it(
+    @client = Redd.it(
       :script,
       "H3o8S_X6B0WYzg",
       "VKhDeFb95MNkusqz539h9XcoNfk",
       "not_gabe_2", "not_gabe_2",
       user_agent: "Abe Newman v1.0.0 by /u/ghost_of_drusepth"
       )
-    reddit.authorize!
+    client.authorize!
   end
 
   def scrape
@@ -29,19 +29,28 @@ class RedditWorker < Tentacle
     end
   end
 
+  def respond_to id, message
+    # TODO: Respond to comment ID with message
+  end
+
+  def broadcast message
+    # TODO: Figure out how to include params/subreddit here in polymorphic way
+  end
+
   def shutdown
-    @reddit = nil
+    # TODO: not sure if this is needed
+    @client = nil
   end
 
   private
 
   def stream_all
-    reddit.stream :get_comments, "all" do |comment|
+    client.stream :get_comments, "all" do |comment|
       feed_retort(
-        comment.body,
+        message:    comment.body,
         identifier: "/u/#{comment.author}",
-        channel: comment.subreddit,
-        medium: 'reddit'
+        channel:    comment.subreddit,
+        medium:     'reddit'
         )
     end
   end

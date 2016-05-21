@@ -35,22 +35,25 @@ class Tentacle
   # Methods to use
 
   def log message, channel: 'log'
-    # TODO: add logging here
+    # TODO: add real logging here
+    puts "[#{channel}] #{message}"
     # TODO: add timestamps, etc
   end
 
-  def feed_retort message, identifier: nil, channel: nil, medium: nil
+  def feed_retort message:, identifier: nil, channel: nil, medium: nil
+    log "Feeding \"#{message[0, 140]}\" to Retort, #{identifier}@#{medium}##{channel}"
+
     # TODO: clean all this garbage up
-    # TODO: add logging here
     id_params = ['']
     id_params << "identifier=#{identifier}" if identifier
     id_params << "channel=#{channel}"       if channel
     id_params << "medium=#{medium}"         if medium
 
+    # TODO: repent for thy sins
     uri = URI.parse(URI.escape [
       RETORT_BASE_URL,        # http://www.retort.us
       '/bigram/parse',        # /bigram/parse
-      "?message=#{message}"   # ?message=Something someone said
+      "?message=#{message}",  # ?message=Something someone said
       id_params.join('&')     # &channel=topsecret&medium=irc.nsa.gov
       ].join)
 
@@ -66,12 +69,20 @@ class Tentacle
   def sanitize message
     message
       .gsub(/<br[ ]?[\/]?>/, "\n") # Replace <br /> with \n
-      .gsub(/&quot;/, '"')         # Replace &quot; with "
-      .gsub(/&#44;/, ',')          # Replace &#44; with ,
-      .gsub(/&#039;/, "'")         # Replace &#039; with '
-      .gsub(/&gt;/, '>')           # Replace &gt; with >
-      .gsub(/&lt;/, '<')           # Replace &lt; with <
       .gsub(/<\/?[^>]*>/, ' ')     # Remove all HTML tags
+      .gsub('&rsquo;', "'")
+      .gsub('&lsquo;', "'")
+      .gsub('&rdquo;', '"')
+      .gsub('&ldquo;', '"')
+      .gsub('&quot;',  '"')        # Replace &quot; with "
+      .gsub('&#44;',   ',')        # Replace &#44; with ,
+      .gsub('&#039;',  "'")        # Replace &#039; with '
+      .gsub('&gt;',    '>')        # Replace &gt; with >
+      .gsub('&lt;',    '<')        # Replace &lt; with <
+      .gsub('“',       '"')        # etc
+      .gsub('”',       '"')
+      .gsub('…',       '...')
+      .strip
     rescue
       message
     end

@@ -1,7 +1,11 @@
 desc "Spin up reddit tentacle"
 task :reddit_tentacle => :environment do
-  puts "Starting reddit tentacle"
+  # TODO: Add reasonable output here
   # TODO: Handle per-run auth/config here
   RedditWorker.new.perform
-  puts "Reddit is done"
+end
+
+desc "Spin up tumblr tentacle"
+task :tumblr_tentacle => :environment do
+  TumblrWorker.new.perform
 end

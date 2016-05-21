@@ -15,6 +15,7 @@ gem 'turbolinks'
 
 # Data sources
 gem 'redd'
+gem 'tumblr_client'
 
 group :development, :test do
   gem 'byebug'
