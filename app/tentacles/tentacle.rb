@@ -50,17 +50,15 @@ class Tentacle
     id_params << "medium=#{medium}"         if medium
 
     # TODO: repent for thy sins
-    uri = URI.parse(URI.escape [
-      RETORT_BASE_URL,        # http://www.retort.us
-      '/bigram/parse',        # /bigram/parse
-      "?message=#{message}",  # ?message=Something someone said
-      id_params.join('&')     # &channel=topsecret&medium=irc.nsa.gov
-      ].join)
+    url = URI.escape([
+        RETORT_BASE_URL,           # http://www.retort.us
+        '/bigram/parse',           # /bigram/parse
+        "?message=#{message}",     # ?message=Something someone said
+        id_params.join('&')        # &channel=topsecret&medium=irc.nsa.gov
+      ].join
+    )
 
-    # TODO: abstract this boilerplate out
-    http = Net::HTTP.new(uri.host, uri.port)
-    request = Net::HTTP::Get.new(uri.request_uri)
-    response = http.request(request)
+    Tentacle.get url
   rescue
     # TODO: include relevant data here
     log "Couldn't feed message to Retort: stuff", channel: 'error'
@@ -83,7 +81,16 @@ class Tentacle
       .gsub('”',       '"')
       .gsub('…',       '...')
       .strip
-    rescue
-      message
-    end
+  rescue
+    message
   end
+
+  def self.get url
+    # TODO: abstract this boilerplate out into RetortWorker with retries
+    # TODO: whitelist uri.hosts here
+    uri      = URI.parse(url)
+    http     = Net::HTTP.new(uri.host, uri.port)
+    request  = Net::HTTP::Get.new(uri.request_uri)
+    response = http.request(request)
+  end
+end

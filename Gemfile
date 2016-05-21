@@ -1,21 +1,23 @@
 source 'https://rubygems.org'
 
+# Server
 gem 'rails', '4.2.5'
 gem 'therubyracer', platforms: :ruby
-
 gem 'foreman'
 gem 'puma'
 gem 'sidekiq'
 
+# Assets
 gem 'sass-rails', '~> 5.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'uglifier'
 gem 'turbolinks'
 
-# Data sources
-gem 'redd'
-gem 'tumblr_client'
+# Tentacle I/O
+gem 'redd'				# Reddit
+gem 'tumblr_client'		# Tumblr
+gem 'twitter'			# Twitter
 
 group :development, :test do
   gem 'byebug'

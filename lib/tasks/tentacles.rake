@@ -9,3 +9,8 @@ desc "Spin up tumblr tentacle"
 task :tumblr_tentacle => :environment do
   TumblrWorker.new.perform
 end
+
+desc "Spin up twitter tentacle"
+task :twitter_tentacle => :environment do
+  TwitterWorker.new.perform
+end
