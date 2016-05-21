@@ -8,9 +8,9 @@ class Tentacle
   DACTYL_BASE_URL = 'http://www.dactyl.in'
 
   def perform
-  	startup
-  	scrape
-  	shutdown
+    startup
+    scrape
+    shutdown
   end
 
   private
