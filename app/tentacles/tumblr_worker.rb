@@ -33,8 +33,20 @@ class TumblrWorker < Tentacle
     # TODO: Respond to comment ID with message
   end
 
-  def broadcast message
-    # TODO: Post to Tumblr blog
+  def broadcast message, blog: nil
+    # TODO: handle other post types
+    # TODO: figure out how to polymorphically include options here (post type, etc)
+
+    blog ||= 'ankov-me.tumblr.com'
+
+    if message.length < 100
+      # TODO: handle source?
+      client.quote(blog, { quote: message, source: 'Anonymous' })
+    else
+      # TODO: handle title?
+      @client.text(blog, { title: message })
+    end
+
   end
 
   def shutdown

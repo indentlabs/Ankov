@@ -31,6 +31,7 @@ class TwitterWorker < Tentacle
 
   # Tweet
   def broadcast message
+    log "Tweeting \"#{message}\"", channel: 'success'
     client.update message
   #rescue
   #  log "Couldn't tweet: info", channel: 'error'

@@ -1,5 +1,5 @@
 desc "Tweet something from a twitter tentacle"
-task :twitter_tweet => :environment do
+task :twitter_broadcast => :environment do
   # TODO: allow tweeting from other users
   # TODO: allow passing in a message to tweet
   tweet_generator_url = "#{Tentacle::RETORT_BASE_URL}/markov/create?medium=twitter"
