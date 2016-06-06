@@ -33,3 +33,17 @@ task :tumblr_tia => :environment do
     t.shutdown
   end
 end
+
+desc "Post something to Ankov Comes blog"
+task :tumblr_comes => :environment do
+  generator_url = "#{Tentacle::RETORT_BASE_URL}/markov/create?medium=bible"
+  message = Tentacle.get(generator_url)
+
+  puts "Broadcasting: #{message}"
+
+  TumblrWorker.new.tap do |t|
+    t.startup
+    t.broadcast(message, blog: 'ankovcomes.tumblr.com')
+    t.shutdown
+  end
+end
