@@ -25,7 +25,7 @@ class RedditWorker < Tentacle
       raise error unless (500...600).include?(error.code)
       retry
     rescue
-      log "Failed to scrape reddit", "error"
+      log "Failed to scrape reddit", channel: "error"
     end
   end
 
@@ -51,7 +51,7 @@ class RedditWorker < Tentacle
         identifier: "/u/#{comment.author}",
         channel:    comment.subreddit,
         medium:     'reddit'
-        )
+      )
     end
   end
 end

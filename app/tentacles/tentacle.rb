@@ -80,6 +80,8 @@ class Tentacle
       .gsub('“',       '"')        # etc
       .gsub('”',       '"')
       .gsub('…',       '...')
+      .gsub('&#44;', ',')          # Replace &#44; with ,
+      .gsub('&#039;', "'")         # Replace &#039; with '
       .strip
   rescue
     message

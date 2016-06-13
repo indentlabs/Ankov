@@ -15,9 +15,10 @@ gem 'uglifier'
 gem 'turbolinks'
 
 # Tentacle I/O
-gem 'redd'				# Reddit
-gem 'tumblr_client'		# Tumblr
-gem 'twitter'			# Twitter
+gem 'redd'              # Reddit
+gem 'tumblr_client'     # Tumblr
+gem 'twitter'           # Twitter
+gem 'simple-fourchan'   # 4chan
 
 group :development, :test do
   gem 'byebug'

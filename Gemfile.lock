@@ -150,6 +150,8 @@ GEM
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
       redis (~> 3.2, >= 3.2.1)
+    simple-fourchan (0.1.2)
+      json
     simple_oauth (0.3.1)
     sprockets (3.6.0)
       concurrent-ruby (~> 1.0)
@@ -212,6 +214,7 @@ DEPENDENCIES
   redd
   sass-rails (~> 5.0)
   sidekiq
+  simple-fourchan
   sqlite3
   therubyracer
   tumblr_client

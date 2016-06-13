@@ -14,3 +14,8 @@ desc "Spin up twitter tentacle"
 task :twitter_tentacle => :environment do
   TwitterWorker.new.perform
 end
+
+desc "Spin up fortune tentacle"
+task :fortune_tentacle => :environment do
+  FortuneWorker.new.perform
+end
